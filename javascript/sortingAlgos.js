@@ -4,6 +4,37 @@ function swap(arr, idx1, idx2) {
 
 function merge(arr1, arr2) {
     let newArr = []
+    let i = 0
+    let j = 0
+    let counter = 0
+    while (true) {
+        counter++
+        if (counter > 100) {
+            console.log('broken')
+            break
+        }
+        if (i === arr1.length && j === arr2.length) {
+            break
+        }
+        else if (i === arr1.length) {
+            newArr.pushh(arr2[j])
+        }
+        else if (j === arr2.length) {
+
+        }
+        if (arr1[i] < arr2[j]) {
+            newArr.push(arr1[i])
+            if (i != arr1.length - 1) {
+                i++
+            }
+        } else {
+            newArr.push(arr2[j])
+            if (j != arr2.length - 1) {
+                j++
+            }
+        }
+    }
+    return newArr
 }
 
 function bubbleSort(arr) {
@@ -54,5 +85,8 @@ function insertionSort(arr) {
 
 let newArr = [0, 6, 4, 8, 3, 9, 2, 20, 15, 17, 48, 1]
 
-console.log(insertionSort(newArr))
+let arr1 = [1, 2, 5, 7, 8]
+let arr2 = [3, 4, 6]
+console.log(merge(arr1, arr2))
+// console.log(insertionSort(newArr))
 // bubbleSort(newArr)

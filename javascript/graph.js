@@ -30,25 +30,68 @@ class Graph {
     }
 
     dfs(vertex) {
-        let visited = {}
-        let results = []
-        console.log(this.adjacencyList)
-        let dictionary = this.adjacencyList
+        const visited = {}
+        const results = []
+        const dictionary = this.adjacencyList
         function dfs_recursive(vertex) {
             console.log(dictionary)
-            if (!dictionary[vertex]) {
-                return
+            if (!vertex) {
+                return null
             }
             console.log(dictionary[vertex])
             visited[vertex] = true
             results.push(vertex)
+            // dictionary[vertex].forEach((neighbor) => {
+            //     if (!visited[vertex]) {
+            //         return dfs_recursive(neighbor)
+            //     }
+            // })
+            // debugger
             for (let i = 0; i < dictionary[vertex].length; i++) {
-                if (!visited[vertex]) {
-                    dfs_recursive(dictionary[vertex])
+                if (!visited[dictionary[vertex][i]]) {
+                    dfs_recursive(dictionary[vertex][i])
                 }
             }
         }
         dfs_recursive(vertex)
+        return results
+    }
+
+    dfs2(vertex) {
+        let stack = []
+        let visited = {}
+        let results = []
+        stack.push(vertex)
+        debugger
+        while (stack.length != 0) {
+            vertex = stack.pop()
+            if (!visited[vertex]) {
+                visited[vertex] = true
+                results.push(vertex)
+                for (let i = 0; i < this.adjacencyList[vertex].length; i++) {
+                    stack.push(this.adjacencyList[vertex][i])
+                }
+            }
+        }
+        return results
+    }
+
+    bfs(vertex) {
+        let q = []
+        let visited = {}
+        let results = []
+        q.push(vertex)
+        debugger
+        while (q.length != 0) {
+            vertex = q.shift()
+            if (!visited[vertex]) {
+                visited[vertex] = true
+                results.push(vertex)
+                for (let i = 0; i < this.adjacencyList[vertex].length; i++) {
+                    q.push(this.adjacencyList[vertex][i])
+                }
+            }
+        }
         return results
     }
 }
@@ -68,5 +111,5 @@ g.add_edge("C", "E")
 g.add_edge("D", "E")
 g.add_edge("D", "F")
 g.add_edge("E", "F")
-console.log(g.adjacencyList["A"])
-g.dfs("A")
+console.log(g.bfs("A"))
+console.log(g.dfs2("A"))

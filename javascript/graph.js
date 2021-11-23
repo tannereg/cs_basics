@@ -13,7 +13,6 @@ class Graph {
         if (!this.adjacencyList[vertex2]) return `${vertex2} not found`
         this.adjacencyList[vertex1].push(vertex2)
         this.adjacencyList[vertex2].push(vertex1)
-        console.log(this.adjacencyList)
         return `${vertex1} and ${vertex2} connected`
     }
     remove_edge(vertex1, vertex2) {
@@ -29,14 +28,45 @@ class Graph {
         }
         delete this.adjacencyList[vertex]
     }
+
+    dfs(vertex) {
+        let visited = {}
+        let results = []
+        console.log(this.adjacencyList)
+        let dictionary = this.adjacencyList
+        function dfs_recursive(vertex) {
+            console.log(dictionary)
+            if (!dictionary[vertex]) {
+                return
+            }
+            console.log(dictionary[vertex])
+            visited[vertex] = true
+            results.push(vertex)
+            for (let i = 0; i < dictionary[vertex].length; i++) {
+                if (!visited[vertex]) {
+                    dfs_recursive(dictionary[vertex])
+                }
+            }
+        }
+        dfs_recursive(vertex)
+        return results
+    }
 }
 
 g = new Graph()
-g.add_vertex("Tokyo")
-g.add_vertex("hong kong")
-console.log(g.add_edge('Tokyo', "hong kong"))
-console.log(Object.values(g.adjacencyList))
-console.log(Object.keys(g.adjacencyList))
-console.log(g.adjacencyList)
-g.remove_vertex("hong kong")
-console.log(g.adjacencyList)
+g.add_vertex("A")
+g.add_vertex("B")
+g.add_vertex("C")
+g.add_vertex("D")
+g.add_vertex("E")
+g.add_vertex("F")
+
+g.add_edge("A", "B")
+g.add_edge("A", "C")
+g.add_edge("B", "D")
+g.add_edge("C", "E")
+g.add_edge("D", "E")
+g.add_edge("D", "F")
+g.add_edge("E", "F")
+console.log(g.adjacencyList["A"])
+g.dfs("A")

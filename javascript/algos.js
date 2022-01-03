@@ -147,3 +147,27 @@ let arr = [0, 6, 4, 8, 3, 3, 1, 9, 23, 2, 1, 41, 18, 1]
 let arr1 = [1, 2, 5, 7, 8, 9, 22, 50, 56]
 let arr2 = [3, 4, 6, 8, 11, 19, 24]
 console.log(radixSort(arr))
+
+function binarySearch(arr, val) {
+    let begin = 0
+    let end = arr.length - 1
+    let counter = 0
+
+    function helper(arr, begin, end, val) {
+        let index = Math.round((end + begin) / 2)
+        if (val === arr[index]) {
+            return index
+        }
+        else if (begin >= end) {
+            return -1
+        }
+        else if (val > arr[index]) {
+            begin = index + 1
+            return helper(arr, begin, end, val)
+        } else {
+            end = index - 1
+            return helper(arr, begin, end, val)
+        }
+    }
+    return helper(arr, 0, end, val)
+}
